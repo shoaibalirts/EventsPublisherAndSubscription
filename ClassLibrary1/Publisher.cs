@@ -1,22 +1,28 @@
-﻿namespace ClassLibrary1
-{
+﻿using System;
 
-    public delegate void MyDelegateType(int a, int b);
+namespace ClassLibrary1
+{
 
     // publisher
     public class Publisher
     {
 
         // step1: create event 
-        public event MyDelegateType myEvent;
+        public event Predicate<int> myEvent;
 
-        public void RaiseEvent(int a, int b)
+        public bool RaiseEvent(int a)
         {
             // step2: raise event
             if (this.myEvent != null)
             {
-                this.myEvent(a, b);
+                bool result = this.myEvent(a);
+                return result;
             }
+            else
+            {
+                return false;
+            }
+
         }
     }
 

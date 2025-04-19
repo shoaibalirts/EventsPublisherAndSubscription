@@ -1,19 +1,26 @@
-﻿using ClassLibrary1;
+﻿using System;
+using ClassLibrary1;
 
 namespace EventsPublisherAndSubscription
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            Subscriber subscriber = new Subscriber();
             Publisher publisher = new Publisher();
             // handle the event or subscribe to the event
-            publisher.myEvent += subscriber.Add;
+            publisher.myEvent += (a) => // lambda expression; replaced delegate keyword wth arrow operator
+                {
+                    return a >= 0;
+                }
+            ;
             // invoke the event
-            publisher.RaiseEvent(10, 20);
-            publisher.RaiseEvent(5, 80);
-            publisher.RaiseEvent(14, 22);
+            Console.WriteLine(publisher.RaiseEvent(-1));
+
+            Console.WriteLine(publisher.RaiseEvent(5));
+
+            Console.WriteLine(publisher.RaiseEvent(14));
+
 
         }
 
