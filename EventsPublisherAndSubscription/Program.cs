@@ -3,25 +3,31 @@ using ClassLibrary1;
 
 namespace EventsPublisherAndSubscription
 {
-    internal class Program
+    class Program
     {
         public static void Main()
         {
+
+            Program p = new Program();
+            p.DoWork();
+
+        }
+
+        public void DoWork()
+        {
             Publisher publisher = new Publisher();
             // handle the event or subscribe to the event
-            publisher.myEvent += (a) => // lambda expression; replaced delegate keyword wth arrow operator
+            publisher.myEvent += (sender, e) => // lambda expression; replaced delegate keyword wth arrow operator
                 {
-                    return a >= 0;
+                    Console.WriteLine(e.a + e.b);
                 }
-            ;
+                ;
             // invoke the event
-            Console.WriteLine(publisher.RaiseEvent(-1));
+            publisher.RaiseEvent(this, 5, 6);
 
-            Console.WriteLine(publisher.RaiseEvent(5));
+            publisher.RaiseEvent(this, 15, 15);
 
-            Console.WriteLine(publisher.RaiseEvent(14));
-
-
+            publisher.RaiseEvent(this, 14, 16);
         }
 
     }
